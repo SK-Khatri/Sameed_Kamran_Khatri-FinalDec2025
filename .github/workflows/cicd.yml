@@ -25,4 +25,29 @@ jobs:
       - name: Run test (node index.js)
         run: npm test
 
+  snyk-scan:
+    name: Snyk Security Scan
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write 
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run Snyk
+      uses: snyk/actions/node@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        args: --sarif-file-output=snyk-results.sarif
+
+    - name: Upload Snyk results to GitHub security tab
+      uses: github/codeql-action/upload-sarif@v3
+      with:
+        sarif_file: 'snyk-results.sarif'
   
