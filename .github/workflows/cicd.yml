@@ -75,7 +75,7 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            skkhatri06/cmdbuild:v1.1.0-Final
-            skkhatri06/cmdbuild:latest-Final
+            skkhatri06/hello-world:v1.1.0-Final
+            skkhatri06/hello-world:latest-Final
 
 
